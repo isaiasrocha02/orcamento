@@ -131,12 +131,18 @@ button:hover { background: #1565c0; }
     color: #fff;
 }
 
-.material-option img, .image-selector img {
+.image-selector img {
     border-radius: 4px;
     max-width: 100%;
     height: auto;
 }
 
+.material-option img {
+    border-radius: 4px;
+    width: 140px;
+    height: 100px;
+    object-fit: cover;
+}
 /* Carrinho (Adaptado de .jogo) */
 .cart-item {
     background: #3a3a3a;

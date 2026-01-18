@@ -34,6 +34,27 @@ document.addEventListener('DOMContentLoaded', () => {
         const finalizeOrderBtn = document.getElementById('finalize-order');
         const cartItemsContainer = document.getElementById('cart-items');
 
+        // --- Lógica para suportar JPG, PNG e GIF nos Materiais ---
+        const materialImages = document.querySelectorAll('.material-option img');
+        materialImages.forEach(img => {
+            const materialKey = img.dataset.material;
+            if (materialKey) {
+                const extensions = ['jpg', 'png', 'gif'];
+                let imageFound = false;
+                extensions.forEach(ext => {
+                    const imgPath = `material/${materialKey}.${ext}`;
+                    const tempImg = new Image();
+                    tempImg.src = imgPath;
+                    tempImg.onload = () => {
+                        if (!imageFound) {
+                            imageFound = true;
+                            img.src = imgPath;
+                        }
+                    };
+                });
+            }
+        });
+
         // --- Lógica do Modal de Zoom ---
         const modal = document.getElementById('image-modal');
         const modalImg = document.getElementById('modal-img');
@@ -66,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const materialDetails = {
             ferro: "<strong>Tipo Ferro (Tradicional):</strong><br>Boa resistência e custo mais baixo, mas exige muita manutenção para evitar oxidação (ferrugem).",
-            aco_carbono: "<strong>Tipo Aço Carbono:</strong><br>Usado para alta resistência, frequentemente recebe tratamento de galvanização a fogo para proteção.",
+            aco_galvanizado: "<strong>Tipo Aço Galvanizado:</strong><br>Aço revestido com uma camada de zinco para alta resistência à corrosão, ideal para áreas externas.",
             aco_inox: "<strong>Tipo Aço Inoxidável:</strong><br>Ideal para ambientes com umidade ou corrosivos (indústria química, bebidas), oferece alta resistência e durabilidade.",
             metalon: "<strong>Tipo Metalon (Tubo de Aço):</strong><br>Tubos quadrados, redondos ou retangulares, oferecem segurança, resistência e design moderno.",
             aluminio: "<strong>Tipo Alumínio:</strong><br>Leve, resistente à corrosão e com baixa manutenção, mas menos resistente a impactos fortes comparado ao ferro/aço."
@@ -258,6 +279,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Extrai o número do modelo do caminho da imagem (ex: "Grade Fixa/1.png" -> "1")
                 const designModel = item.design.split('/').pop().replace(/\.(jpg|png|gif)$/i, '');
                 message += `*Desenho:* Modelo nº ${designModel}\n`;
+                
+                // Gera o link para a imagem hospedada
+                const fullImageUrl = new URL(item.design, window.location.href).href;
+                message += `*Ver Foto:* ${fullImageUrl}\n`;
+
                 message += `*Medidas:* ${item.height}m (altura) x ${item.width}m (largura)\n`;
                 message += `*Material:* ${item.material}\n\n`;
             });
