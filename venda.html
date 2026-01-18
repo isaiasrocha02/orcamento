@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orçamento - Detalhes do Produto</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Detalhes do Orçamento</h1>
+        <form id="product-details-form">
+            
+            <!-- Tipo de Grade/Portão -->
+            <fieldset class="form-group">
+                <legend>1. Tipo de Grade/Portão</legend>
+                <div class="radio-group">
+                    <label><input type="radio" name="gate_type" value="Grade Fixa" checked> Grade Fixa</label>
+                    <label><input type="radio" name="gate_type" value="Grade Móvel de Abrir"> Grade Móvel de Abrir</label>
+                    <label><input type="radio" name="gate_type" value="Grade Móvel de Correr"> Grade Móvel de Correr</label>
+                    <label><input type="radio" name="gate_type" value="Portão Móvel de Abrir"> Portão Móvel de Abrir</label>
+                    <label><input type="radio" name="gate_type" value="Portão Móvel de Correr"> Portão Móvel de Correr</label>
+                    <label><input type="radio" name="gate_type" value="Janela cor porta de abrir"> Janela cor porta de abrir</label>
+                    <label><input type="radio" name="gate_type" value="Janela cor porta de correr"> Janela cor porta de correr</label>
+                </div>
+            </fieldset>
+
+            <!-- Desenho (dinâmico) -->
+            <fieldset id="design-fieldset" class="form-group" style="display: none;">
+                <legend>2. Escolha o Desenho</legend>
+                <div id="design-options-container" class="image-selector">
+                    <!-- As opções de desenho serão inseridas aqui pelo JavaScript -->
+                </div>
+            </fieldset>
+
+            <!-- Medidas -->
+            <fieldset class="form-group">
+                <legend>3. Medidas (em metros)</legend>
+                <div class="measurements">
+                    <div class="form-group-inline">
+                        <label for="height">Altura</label>
+                        <input type="number" id="height" name="height" step="0.01" min="0" required placeholder="Ex: 2,10">
+                    </div>
+                    <div class="form-group-inline">
+                        <label for="width">Largura</label>
+                        <input type="number" id="width" name="width" step="0.01" min="0" required placeholder="Ex: 3,00">
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- Material -->
+            <fieldset class="form-group">
+                <legend>4. Material</legend>
+                <div class="material-selector">
+                    <div class="material-option">
+                        <img src="https://via.placeholder.com/150x100.png?text=Ferro" alt="Ferro" data-material="ferro">
+                        <p>Ferro</p>
+                    </div>
+                    <div class="material-option">
+                        <img src="https://via.placeholder.com/150x100.png?text=Aço+Carbono" alt="Aço Carbono" data-material="aco_carbono">
+                        <p>Aço Carbono</p>
+                    </div>
+                    <div class="material-option">
+                        <img src="https://via.placeholder.com/150x100.png?text=Aço+Inox" alt="Aço Inoxidável" data-material="aco_inox">
+                        <p>Aço Inox</p>
+                    </div>
+                    <div class="material-option">
+                        <img src="https://via.placeholder.com/150x100.png?text=Metalon" alt="Metalon" data-material="metalon">
+                        <p>Metalon</p>
+                    </div>
+                    <div class="material-option">
+                        <img src="https://via.placeholder.com/150x100.png?text=Alumínio" alt="Alumínio" data-material="aluminio">
+                        <p>Alumínio</p>
+                    </div>
+                </div>
+                <input type="hidden" id="selected_material" name="material">
+                <div id="material-description" class="material-description"></div>
+            </fieldset>
+
+            <div class="form-buttons">
+                <button type="button" id="add-to-cart">Adicionar ao Carrinho</button>
+                <button type="button" id="finalize-order">Finalizar Orçamento</button>
+            </div>
+        </form>
+
+        <hr>
+
+        <div class="cart-container">
+            <h2>Carrinho</h2>
+            <div id="cart-items">
+                <!-- Itens do carrinho aparecerão aqui -->
+            </div>
+        </div>
+
+        <!-- Modal para visualização ampliada -->
+        <div id="image-modal" class="modal">
+            <span class="close">&times;</span>
+            <img class="modal-content" id="modal-img">
+        </div>
+
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
