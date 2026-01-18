@@ -46,17 +46,26 @@ document.addEventListener('DOMContentLoaded', () => {
             const materialKey = img.dataset.material;
             if (materialKey) {
                 const extensions = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'JPG', 'JPEG', 'PNG', 'GIF'];
+                // Tenta variações de nome: tudo minúsculo, Primeira Maiúscula, TUDO MAIÚSCULO
+                const nameVariations = [
+                    materialKey, 
+                    materialKey.charAt(0).toUpperCase() + materialKey.slice(1),
+                    materialKey.toUpperCase()
+                ];
+
                 let imageFound = false;
-                extensions.forEach(ext => {
-                    const imgPath = `material/${materialKey}.${ext}`;
-                    const tempImg = new Image();
-                    tempImg.src = imgPath;
-                    tempImg.onload = () => {
-                        if (!imageFound) {
-                            imageFound = true;
-                            img.src = imgPath;
-                        }
-                    };
+                nameVariations.forEach(name => {
+                    extensions.forEach(ext => {
+                        const imgPath = `material/${name}.${ext}`;
+                        const tempImg = new Image();
+                        tempImg.src = imgPath;
+                        tempImg.onload = () => {
+                            if (!imageFound) {
+                                imageFound = true;
+                                img.src = imgPath;
+                            }
+                        };
+                    });
                 });
             }
         });
