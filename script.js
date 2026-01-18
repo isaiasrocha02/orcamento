@@ -22,6 +22,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Logic for venda.html ---
     if (window.location.pathname.endsWith('venda.html')) {
+        // Verifica se o usuário tem os dados salvos. Se não tiver, manda de volta para o início.
+        if (!localStorage.getItem('customerName') || !localStorage.getItem('customerContact')) {
+            window.location.href = 'index.html';
+            return;
+        }
+
         const productForm = document.getElementById('product-details-form');
         const gateTypeRadios = document.querySelectorAll('input[name="gate_type"]');
         const designFieldset = document.getElementById('design-fieldset');
@@ -39,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
         materialImages.forEach(img => {
             const materialKey = img.dataset.material;
             if (materialKey) {
-                const extensions = ['jpg', 'png', 'gif'];
+                const extensions = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'JPG', 'JPEG', 'PNG', 'GIF'];
                 let imageFound = false;
                 extensions.forEach(ext => {
                     const imgPath = `material/${materialKey}.${ext}`;
@@ -103,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             designFieldset.style.display = 'block';
             const maxDesigns = 20; // Checa até o número 20
-            const extensions = ['jpg', 'png', 'gif']; // Extensões permitidas
+            const extensions = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'JPG', 'JPEG', 'PNG', 'GIF']; // Extensões permitidas
 
             for (let i = 1; i <= maxDesigns; i++) {
                 const designName = `Desenho ${i}`;
